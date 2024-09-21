@@ -1,6 +1,5 @@
 // Types used in Article Feature
 
-import { inter } from "./globalConstants"
 
 //Describes arcticle's content block schema send from the CMS 
 export interface ContentBlock {
