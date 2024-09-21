@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F8FAFC;
+  /* --foreground: #171717; */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #F8FAFC;
+    /* --foreground: #ededed; */
   }
 }
 
@@ -25,3 +25,40 @@ body {
     text-wrap: balance;
   }
 }
+
+
+body {
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100vh !important;
+}
+
+html{
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+
+.logout-container {
+  display: inline-block;
+  position: relative;
+}
+
+/* Style for the image (default: black) */
+.logout-container img {
+  filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+
+}
+
+/* Change color to red on hover */
+.logout-container:hover img {
+  filter:  invert(26%) sepia(34%) saturate(3486%) hue-rotate(354deg) brightness(94%) contrast(93%);
+}
+
