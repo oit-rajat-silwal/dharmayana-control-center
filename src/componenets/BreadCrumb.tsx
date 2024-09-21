@@ -29,7 +29,7 @@ const BreadCrumb = ({ pathname }: { pathname: string }) => {
             className={`  text-[14px] font-[500]`}
             separator={
                 <Image
-                    src={`${process.env.NEXT_PUBLIC_ASSETS_BASE_URL}/breadcrumbSeparator.svg`}
+                    src={`/breadcrumbSeparator.svg`}
                     alt=">"
                     priority={true}
                     loading='eager'
