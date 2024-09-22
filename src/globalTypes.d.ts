@@ -328,7 +328,8 @@ export interface Feature {
     featureIconURL: string,
     featureHeading: string,
     featureDescription: string,
-    featureBtnLabel: string
+    featureBtnLabel: string,
+    featurePageURL: string,
 }
 
 export type Customer = {

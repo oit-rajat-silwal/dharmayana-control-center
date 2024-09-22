@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const FeatureCard = (
@@ -6,13 +7,15 @@ const FeatureCard = (
     featureIconURL,
     featureHeading,
     featureDescription,
-    featureBtnLabel
+    featureBtnLabel,
+    featurePageURL,
   }: {
     baseClass: string,
     featureIconURL: string,
     featureHeading: string,
     featureDescription: string,
-    featureBtnLabel: string
+    featureBtnLabel: string,
+    featurePageURL: string,
   }) => {
   return (
     <div className={`${baseClass} grid  lg:flex  lg:justify-between lg:items-center  gap-[24px] `}>
@@ -23,12 +26,14 @@ const FeatureCard = (
           <p className={` text-[1rem] font-[500] text-[#737373]`}>{featureDescription}</p>
         </div>
       </div>
-      <div className='h-[40px] rounded-md border-2 py-2 px-4 flex gap-2 bg-[#F5F5F5] items-center justify-center cursor-pointer hover:scale-105 lg:hover:scale-110 transition duration-200  ease-in-out' >
-        <span className='text-[#CD5712] font-sans font-[500]'>
-          {featureBtnLabel}
-        </span>
-        <Image src={'/feature-card-button-arrow.svg'} width={6} height={10} alt='feature-card-button-arrow-icon'></Image>
-      </div>
+      <Link href={featurePageURL}>
+        <div className='h-[40px] rounded-md border-2 py-2 px-4 flex gap-2 bg-[#F5F5F5] items-center justify-center cursor-pointer hover:scale-105 lg:hover:scale-110 transition duration-200  ease-in-out' >
+          <span className='text-[#CD5712] font-sans font-[500]'>
+            {featureBtnLabel}
+          </span>
+          <Image src={'/feature-card-button-arrow.svg'} width={6} height={10} alt='feature-card-button-arrow-icon'></Image>
+        </div>
+      </Link>
     </div>
   )
 }
