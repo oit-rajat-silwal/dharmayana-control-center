@@ -70,12 +70,12 @@ const CustomersPage: React.FC = () => {
         <div className="flex flex-wrap gap-3">
           <input
             type="text"
-            placeholder="Field Name or Example"
+            placeholder="Search By Name"
             className="p-2 gap-0 rounded-md border border-solid border-[#D4D4D4] bg-white opacity-100"
           />
           <input
             type="text"
-            placeholder="Field Name or Example"
+            placeholder="Search By Phone Number"
             className="p-2 gap-0 rounded-md border border-solid border-[#D4D4D4] bg-white opacity-100"
           />
         </div>

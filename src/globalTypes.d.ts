@@ -350,4 +350,14 @@ export type CustomerDetailsType = {
     phone_number: string
 };
 
-export type SortOption = 'name' | 'gender' | 'age' | 'since';
+export type SortOption = 'name' | 'gender' | 'age' | 'since' | 'role' | 'last_login' | 'status' ;
+
+export type UserDetails = {
+    id: string;
+    name: string;
+    email: string;
+    created_on: string;
+    role: string;
+    last_login: string;
+    status: string;
+}
