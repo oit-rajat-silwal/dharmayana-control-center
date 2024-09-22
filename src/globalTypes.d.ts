@@ -319,14 +319,35 @@ export interface Article {
     authorName: string,
     relatedBlogs: unknown[],
     authorImage: string,
-    seo:unknown
+    seo: unknown
 }
 
 
-export interface Feature   {
+export interface Feature {
     has_access: boolean,
     featureIconURL: string,
     featureHeading: string,
     featureDescription: string,
     featureBtnLabel: string
 }
+
+export type Customer = {
+    id: string;
+    name: string;
+    gender: string;
+    age: number;
+    phone: string;
+    since: string;
+};
+export type CustomerDetailsType = {
+    id: string;
+    name: string;
+    email: string;
+    dob: string,
+    gender: string,
+    location: string,
+    app_region: string,
+    phone_number: string
+};
+
+export type SortOption = 'name' | 'gender' | 'age' | 'since';
