@@ -23,7 +23,7 @@ const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
 }));
 
 // Custom styles for the select menu item on hover
-// eslint-disable-next-line @typescript-eslint/prefer-as-const
+// eslint-disable-next-line   @typescript-eslint/no-unused-vars
 const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     "&:hover": {
         backgroundColor: "#FEF7EC",
@@ -41,7 +41,7 @@ const CloseButton = styled(Button)({
         backgroundColor: "#CD5712",
     },
 });
-
+//eslint-disable-next-line @typescript-eslint/prefer-as-const
 const style = {
     position: "absolute" as "absolute",
     top: "50%",
