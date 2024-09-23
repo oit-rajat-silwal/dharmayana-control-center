@@ -65,7 +65,7 @@ const UserPage: React.FC = () => {
                     <h1 className="font-bold text-[24px]  text-[#171717]">Users</h1>
                     <span className='text-[#737373] text-md'>List of all users on the Control Center</span>
                 </div>
-                <Link href={`/user/user-add`}>
+                <Link href={`/user/add-user`}>
                     <button className=" p-3 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white items-center flex gap-2">
                         <Image src={`/add-user-icon.svg`} height={20} width={20} alt={"add-user-icon"} />
                         <span>Add User</span>
