@@ -11,7 +11,7 @@ interface FormData {
 }
 
 // Custom styles for the checkbox
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/prefer-as-const
 const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
     width: "16px",
     height: "16px",
@@ -23,7 +23,7 @@ const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
 }));
 
 // Custom styles for the select menu item on hover
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/prefer-as-const
 const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     "&:hover": {
         backgroundColor: "#FEF7EC",
@@ -87,11 +87,10 @@ const AddUser: React.FC = () => {
         setOpen(false); // Close the modal
         router.push("/users")
     };
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleRoleChange = (event: any) => {
-        const {
-            target: { value },
-        } = event;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { target: { value } } = event;
         setFormData((prevData) => ({
             ...prevData,
             role: typeof value === "string" ? value.split(",") : value,
@@ -185,7 +184,7 @@ const AddUser: React.FC = () => {
                         </FormControl>
                         <div className="flex gap-2">
                             {
-                                formData.role.map((role) => <span className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">{role}</span>)
+                                formData.role.map((role) => <span key={Math.random()} className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">{role}</span>)
                             }
                         </div>
                     </div>
