@@ -62,3 +62,10 @@ html{
   filter:  invert(26%) sepia(34%) saturate(3486%) hue-rotate(354deg) brightness(94%) contrast(93%);
 }
 
+.MuiSelect-select {
+  padding: 0.5rem !important;
+}
+
+.css-1m9pwf3{
+  border: none !important;
+}
