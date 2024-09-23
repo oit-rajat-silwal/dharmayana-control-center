@@ -351,14 +351,24 @@ export type CustomerDetailsType = {
     phone_number: string
 };
 
-export type SortOption = 'name' | 'gender' | 'age' | 'since' | 'role' | 'last_login' | 'status' ;
+export type SortOption = 'name' | 'gender' | 'age' | 'since' | 'role' | 'last_login' | 'status';
 
 export type UserDetails = {
     id: string;
     name: string;
     email: string;
     created_on: string;
-    role: string;
+    role: string[];
     last_login: string;
-    status: string;
+    status: boolean;
+}
+
+export interface FormData {
+    name: string;
+    email: string;
+    role: string[];
+}
+export interface UserEditFormData {
+    status: boolean;
+    role: string[];
 }

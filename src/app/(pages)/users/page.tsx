@@ -31,10 +31,6 @@ const UserPage: React.FC = () => {
             switch (sortBy) {
                 case 'name':
                     return a.name.localeCompare(b.name);
-                case 'role':
-                    return a.role.localeCompare(b.role);
-                case 'status':
-                    return a.status.localeCompare(b.status);
                 case 'last_login':
                     return new Date(a.last_login).getTime() - new Date(b.last_login).getTime();
                 default:
@@ -65,7 +61,7 @@ const UserPage: React.FC = () => {
                     <h1 className="font-bold text-[24px]  text-[#171717]">Users</h1>
                     <span className='text-[#737373] text-md'>List of all users on the Control Center</span>
                 </div>
-                <Link href={`/user/add-user`}>
+                <Link href={`/users/add-user`}>
                     <button className=" p-3 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white items-center flex gap-2">
                         <Image src={`/add-user-icon.svg`} height={20} width={20} alt={"add-user-icon"} />
                         <span>Add User</span>

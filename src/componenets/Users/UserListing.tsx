@@ -31,7 +31,7 @@ const UserListing: React.FC<CustomerListingProps> = ({ users, handleSorting }) =
                         <span>
                             Role
                         </span>
-                        <Image src={`/sort-icon.svg`} width={16} height={16} alt="the-sort-icon"  />
+                        {/* <Image src={`/sort-icon.svg`} width={16} height={16} alt="the-sort-icon"  /> */}
                     </h3>
 
                     <h3 className="font-sans text-md text-gray-500 flex gap-2 items-center cursor-pointer " onClick={() => { handleSorting('last_login') }}>
@@ -45,7 +45,7 @@ const UserListing: React.FC<CustomerListingProps> = ({ users, handleSorting }) =
                         <span>
                             Status
                         </span>
-                        <Image src={`/sort-icon.svg`} width={16} height={16} alt="the-sort-icon" />
+                        {/* <Image src={`/sort-icon.svg`} width={16} height={16} alt="the-sort-icon" /> */}
                     </h3>
 
                 </div>

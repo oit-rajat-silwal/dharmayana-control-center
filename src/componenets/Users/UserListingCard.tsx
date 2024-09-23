@@ -45,14 +45,16 @@ const UserListingCard: React.FC<UserListingCardProps> = ({ userData, index }) =>
                         <p className="font-sans text-base text-gray-900">{dayjs(userData.last_login).format('DD MMM YYYY hh:mm a')}</p>
                     </div>
                     <div className="flex gap-2 justify-center hidden lg:block">
-                        <p className={` lg:w-full 2xl:w-2/4  border-2   ${userData.status.toLowerCase() === 'active' ? 'bg-[#DCFCE7] border-[#86EFAC] text-[#16A34A]' : 'bg-[#F5F5F5] border-[#737373] text-[#737373]'} rounded-3xl py-[0.3rem] px-[0.8rem]  text-center hidden lg:block`}>{userData.status}</p>
+                        <p className={` lg:w-full 2xl:w-2/4  border-2   ${userData.status ? 'bg-[#DCFCE7] border-[#86EFAC] text-[#16A34A]' : 'bg-[#F5F5F5] border-[#737373] text-[#737373]'} rounded-3xl py-[0.3rem] px-[0.8rem]  text-center hidden lg:block`}>{userData.status ? 'Active' : 'Inactive'}</p>
                     </div>
-                    <div className="flex justify-end items-center">
-                        <div className="  lg:w-full 2xl:w-2/4  bg-[#F5F5F5] hover:bg-[#fef7ec]  gap-2 justify-center py-[0.5rem] px-[1rem] items-center hidden lg:flex rounded-md">
-                            <Image src={'/edit-icon.svg'} width={16} height={16} alt="edit-user-icon" />
-                            <span className='text-[#CD5712]'>Edit</span>
+                    <Link href={`/users/${userData.name.replaceAll(" ", "-")}`}>
+                        <div className="flex justify-end items-center">
+                            <div className="  lg:w-full 2xl:w-2/4  bg-[#F5F5F5] hover:bg-[#fef7ec]  gap-2 justify-center py-[0.5rem] px-[1rem] items-center hidden lg:flex rounded-md">
+                                <Image src={'/edit-icon.svg'} width={16} height={16} alt="edit-user-icon" />
+                                <span className='text-[#CD5712]'>Edit</span>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="flex gap-2 justify-center lg:hidden bg-[#F5F5F5] hover:bg-[#fef7ec] py-2 px-4 rounded-lg">

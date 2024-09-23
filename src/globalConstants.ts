@@ -1,5 +1,7 @@
 import { Inter, Noto_Sans, Noto_Serif, Ubuntu, Roboto, Great_Vibes } from 'next/font/google';
 import { FeatureDescriptions, Months, Rashi, Testimonial } from "@/globalTypes"
+import styled from '@emotion/styled';
+import { Checkbox, MenuItem, Button } from '@mui/material';
 
 //API_SERVICES_CONSTANTS 
 export const revalidate = { revalidate: 3600 };
@@ -260,3 +262,47 @@ export const RASHIES: Rashi[] = [
         image_url: `${process.env.NEXT_PUBLIC_ASSETS_BASE_URL}/pisces-meena.svg`
     },
 ]
+
+
+// Custom styles for the checkbox
+// eslint-disable-next-line @typescript-eslint/prefer-as-const
+export const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
+    width: "16px",
+    height: "16px",
+    "&.Mui-checked": {
+        color: "#CD5712",
+    },
+}));
+
+// Custom styles for the select menu item on hover
+// eslint-disable-next-line   @typescript-eslint/no-unused-vars
+export const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
+    "&:hover": {
+        backgroundColor: "#FEF7EC",
+    },
+}));
+export const CloseButton = styled(Button)({
+    backgroundColor: "#CD5712",
+    padding: "8px 16px",
+    borderRadius: "8px",
+    border: "1px solid",
+    gap: "8px",
+    float: 'right',
+    color: "#FFF",
+    "&:hover": {
+        backgroundColor: "#CD5712",
+    },
+});
+//eslint-disable-next-line @typescript-eslint/prefer-as-const
+export const style = {
+    //eslint-disable-next-line @typescript-eslint/prefer-as-const
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    borderRadius: "0.5rem",
+    boxShadow: 24,
+    p: 4,
+};

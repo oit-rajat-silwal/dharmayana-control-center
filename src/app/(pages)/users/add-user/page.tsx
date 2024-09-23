@@ -3,57 +3,11 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import { Select, MenuItem, Checkbox, FormControl, InputLabel, Modal, Box, Typography, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import { FormData } from "@/globalTypes";
+import { CustomMenuItem, CustomCheckbox, CloseButton } from "@/globalConstants";
+import style from "styled-jsx/style";
 
-interface FormData {
-    name: string;
-    email: string;
-    role: string[];
-}
 
-// Custom styles for the checkbox
-// eslint-disable-next-line @typescript-eslint/prefer-as-const
-const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
-    width: "16px",
-    height: "16px",
-    borderRadius: theme.shape.borderRadius,
-
-    "&.Mui-checked": {
-        color: "#CD5712",
-    },
-}));
-
-// Custom styles for the select menu item on hover
-// eslint-disable-next-line   @typescript-eslint/no-unused-vars
-const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
-    "&:hover": {
-        backgroundColor: "#FEF7EC",
-    },
-}));
-const CloseButton = styled(Button)({
-    backgroundColor: "#CD5712",
-    padding: "8px 16px",
-    borderRadius: "8px",
-    border: "1px solid",
-    gap: "8px",
-    float: 'right',
-    color: "#FFF",
-    "&:hover": {
-        backgroundColor: "#CD5712",
-    },
-});
-//eslint-disable-next-line @typescript-eslint/prefer-as-const
-const style = {
-    //eslint-disable-next-line @typescript-eslint/prefer-as-const
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    borderRadius: "0.5rem",
-    boxShadow: 24,
-    p: 4,
-};
 
 const AddUser: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
@@ -109,7 +63,7 @@ const AddUser: React.FC = () => {
             {/* First Div - Input Fields */}
             <div className="gap-4 grid">
                 {/* Name Input */}
-                <div className="gap-8 flex items-center">
+                <div className=" gap-2 md:gap-9 grid md:flex items-center">
                     <label
                         htmlFor="name"
                         className="font-sans text-sm font-medium leading-5 tracking-normal text-left text-gray-500"
@@ -123,12 +77,12 @@ const AddUser: React.FC = () => {
                         placeholder="Enter Name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="border border-solid border-gray-300 p-2 rounded-md w-[20%]"
+                        className="border border-solid border-gray-300 p-2 rounded-md w-full lg:w-[20%]"
                     />
                 </div>
 
                 {/* Email Input */}
-                <div className="gap-8 flex items-center">
+                <div className=" gap-2 md:gap-9 grid md:flex items-center">
                     <label
                         htmlFor="email"
                         className="font-sans text-sm font-medium leading-5 tracking-normal text-left text-gray-500"
@@ -142,20 +96,20 @@ const AddUser: React.FC = () => {
                         placeholder="Enter Email Id"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`border p-2 rounded-md  w-[20%] ${isValidEmail ? "border-gray-300" : "border-red-500"
+                        className={`border p-2 rounded-md w-full lg:w-[20%] ${isValidEmail ? "border-gray-300" : "border-red-500"
                             }`}
                     />
                 </div>
 
                 {/* Role Select with MUI */}
-                <div className="gap-9 flex items-center">
-                    <InputLabel
+                <div className=" gap-2 md:gap-11 grid md:flex items-center">
+                    <label
                         htmlFor="role"
                         className="font-sans text-sm font-medium leading-5 tracking-normal text-left text-gray-500"
                     >
                         Role
-                    </InputLabel>
-                    <div className="grid gap-2  w-[20%]">
+                    </label>
+                    <div className="grid gap-2 w-full lg:w-[20%]">
 
                         <FormControl className=" w-full relative bottom-1   " >
                             <InputLabel variant="standard" htmlFor="role" className="px-3 relative top-3">
