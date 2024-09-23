@@ -43,7 +43,8 @@ const CloseButton = styled(Button)({
 });
 //eslint-disable-next-line @typescript-eslint/prefer-as-const
 const style = {
-    position: "absolute" as "absolute",
+    //eslint-disable-next-line @typescript-eslint/prefer-as-const
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
