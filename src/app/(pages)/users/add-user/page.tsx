@@ -11,6 +11,7 @@ interface FormData {
 }
 
 // Custom styles for the checkbox
+// eslint-disable-next-line
 const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
     width: "16px",
     height: "16px",
@@ -22,6 +23,7 @@ const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
 }));
 
 // Custom styles for the select menu item on hover
+// eslint-disable-next-line
 const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     "&:hover": {
         backgroundColor: "#FEF7EC",
