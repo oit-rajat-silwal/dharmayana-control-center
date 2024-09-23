@@ -5,6 +5,7 @@ import { CUSTOMER_DATA } from '@/services/customer-services';
 import { USER_DATA } from '@/services/user_services';
 import { Pagination, PaginationItem } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 const UserPage: React.FC = () => {
@@ -64,10 +65,12 @@ const UserPage: React.FC = () => {
                     <h1 className="font-bold text-[24px]  text-[#171717]">Users</h1>
                     <span className='text-[#737373] text-md'>List of all users on the Control Center</span>
                 </div>
-                <button className=" p-3 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white items-center flex gap-2">
-                    <Image src={`/add-user-icon.svg`} height={20} width={20} alt={"add-user-icon"} />
-                    <span>Add User</span>
-                </button>
+                <Link href={`/user/user-add`}>
+                    <button className=" p-3 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white items-center flex gap-2">
+                        <Image src={`/add-user-icon.svg`} height={20} width={20} alt={"add-user-icon"} />
+                        <span>Add User</span>
+                    </button>
+                </Link>
             </div>
             <div className="flex  gap-[1rem]">
 
