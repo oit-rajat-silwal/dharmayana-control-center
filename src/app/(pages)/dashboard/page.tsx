@@ -27,29 +27,29 @@ const Dashboard = () => {
                 }
             ]
         },
-        'Astrology_Service': {
-            has_access: true,
-            features: [
-                {
-                    has_access: true,
-                    featureIconURL: '/astro-orders.svg',
-                    featureHeading: 'Orders',
-                    featureDescription: 'View All Astrology Orders',
-                    featureBtnLabel: 'Go to Page',
-                    featurePageURL:"/astrology/orders"
+        // 'Astrology_Service': {
+        //     has_access: true,
+        //     features: [
+        //         {
+        //             has_access: true,
+        //             featureIconURL: '/astro-orders.svg',
+        //             featureHeading: 'Orders',
+        //             featureDescription: 'View All Astrology Orders',
+        //             featureBtnLabel: 'Go to Page',
+        //             featurePageURL:"/astrology/orders"
 
-                },
-                {
-                    has_access: true,
-                    featureIconURL: '/catalog-management.svg',
-                    featureHeading: 'Catalog Management',
-                    featureDescription: 'View All Paid Customers and their Details',
-                    featureBtnLabel: 'Go to Page',
-                    featurePageURL:"/astrology/catalog"
+        //         },
+        //         {
+        //             has_access: true,
+        //             featureIconURL: '/catalog-management.svg',
+        //             featureHeading: 'Catalog Management',
+        //             featureDescription: 'View All Paid Customers and their Details',
+        //             featureBtnLabel: 'Go to Page',
+        //             featurePageURL:"/astrology/catalog"
 
-                }
-            ]
-        },
+        //         }
+        //     ]
+        // },
         'Administration': {
             has_access: true,
             features: [
