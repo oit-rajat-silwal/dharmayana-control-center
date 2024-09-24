@@ -1,9 +1,9 @@
 'use client'
-import { FormData, UserDetails, UserEditFormData } from '@/globalTypes'
+import {  UserDetails } from '@/globalTypes'
 import { Box, FormControl, InputLabel, Modal, Select, Switch, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/navigation'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CustomMenuItem, CustomCheckbox, CloseButton, style } from '@/globalConstants'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,7 +20,6 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
     })
 
     const router = useRouter();
-    const [isValidEmail, setIsValidEmail] = useState(true);
     const [open, setOpen] = useState(false);
 
     const handleUpdate = () => {
@@ -43,7 +42,7 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
         }));
     };
 
-    const isFormValid = userDetails.role.length > 0 && isValidEmail;
+    const isFormValid = userDetails.role.length > 0 ;
 
     return (
         <div className=' grid gap-[40px] font-sans'>

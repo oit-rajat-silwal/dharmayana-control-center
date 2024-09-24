@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, ChangeEvent, useEffect } from "react";
-import { Select, MenuItem, Checkbox, FormControl, InputLabel, Modal, Box, Typography, Button } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Select, FormControl, InputLabel, Modal, Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FormData } from "@/globalTypes";
 import { CustomMenuItem, CustomCheckbox, CloseButton } from "@/globalConstants";

@@ -265,7 +265,7 @@ export const RASHIES: Rashi[] = [
 
 
 // Custom styles for the checkbox
-// eslint-disable-next-line @typescript-eslint/prefer-as-const
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 export const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
     width: "16px",
     height: "16px",
