@@ -25,7 +25,7 @@ const UserListingCard: React.FC<UserListingCardProps> = ({ userData, index }) =>
                     <h2 className="font-sans font-semibold text-md leading-5 tracking-normal text-left text-[#171717]">
                         {userData.email}
                     </h2>
-                    <p className='border-2 border-[#86EFAC] bg-[#DCFCE7] rounded-3xl py-[0.3rem] px-[0.8rem] text-[#16A34A] text-center lg:hidden'>{userData.status}</p>
+                    <p className={`border-2 ${userData.status ? 'bg-[#DCFCE7] border-[#86EFAC] text-[#16A34A]' : 'bg-[#F5F5F5] border-[#737373] text-[#737373]'} rounded-3xl py-[0.3rem] px-[0.8rem] text-[#16A34A] text-center lg:hidden`}>{userData.status ? 'Active' : 'Inactive'}</p>
                 </div>
                 <hr className="border border-solid border-[#D4D4D4]" />
             </div>

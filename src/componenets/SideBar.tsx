@@ -61,7 +61,7 @@ const SideBar = () => {
                         </span>
                     </li>
                 </Link>
-                <Link href={`/astrology`}>
+                {/* <Link href={`/astrology`}>
                     <li className='transition ease-in-out delay-150 duration-300 rounded-xl py-[0.5rem] px-[1rem] font-[500] text-[14px] hover:bg-[#AB3A12] hover:text-white flex gap-[12px] ] cursor-pointer'
                         onMouseEnter={() => {
                             invertIconColor(document.querySelector('.astrology-sidebar-icon'))
@@ -76,7 +76,7 @@ const SideBar = () => {
                             Astrology Service
                         </span>
                     </li>
-                </Link>
+                </Link> */}
                 <Link href={`/users`}>
                     <li className='transition ease-in-out delay-150 duration-300 rounded-xl py-[0.5rem] px-[1rem] font-[500] text-[14px] hover:bg-[#AB3A12] hover:text-white flex gap-[12px] cursor-pointer'
                         onMouseEnter={() => {

@@ -341,15 +341,17 @@ export type Customer = {
     since: string;
 };
 export type CustomerDetailsType = {
-    id: string;
-    name: string;
-    email: string;
-    dob: string,
-    gender: string,
-    location: string,
-    app_region: string,
-    phone_number: string
-};
+    "id": string,
+    "name": string,
+    "dob": string,
+    "email": string,
+    "gender": string,
+    "location": string,
+    "app_region": string,
+    "phone_number": string,
+    "age": number,
+    "since": string
+  };
 
 export type SortOption = 'name' | 'gender' | 'age' | 'since' | 'role' | 'last_login' | 'status';
 
@@ -371,4 +373,10 @@ export interface FormData {
 export interface UserEditFormData {
     status: boolean;
     role: string[];
+}
+
+
+export interface CustomerSearchParams {
+    name: string,
+    phone: string
 }

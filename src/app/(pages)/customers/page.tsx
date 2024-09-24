@@ -1,61 +1,14 @@
 'use client'
 import CustomerListing from '@/componenets/Customers/CustomerListing';
-import { Customer, SortOption } from '@/globalTypes';
+import { useCustomerContext } from '@/contexts/CustomerContext';
+import { CustomerDetailsType, CustomerSearchParams, SortOption } from '@/globalTypes';
 import { CUSTOMER_DATA } from '@/services/customer-services';
 import { Pagination, PaginationItem } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const CustomersPage: React.FC = () => {
-  const [sortOption, setSortOption] = useState<SortOption>('name');
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const customersPerPage = 5;
-  const [totalCustomers, setTotalCustomers] = useState(0);
-
-  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value); // Update the current page
-  };
-
-  const fetchCustomers = async (page: number) => {
-    const fetchedCustomers = [...CUSTOMER_DATA].splice((page - 1) * customersPerPage, customersPerPage);
-    setCustomers(sortCustomers(fetchedCustomers, sortOption));
-    if (!totalCustomers) {
-      setTotalCustomers(CUSTOMER_DATA.length);
-    }
-  };
-  const sortCustomers = (customers: Customer[], sortBy: SortOption): Customer[] => {
-    return [...customers].sort((a, b) => {
-      switch (sortBy) {
-        case 'name':
-          return a.name.localeCompare(b.name);
-        case 'gender':
-          return a.gender.localeCompare(b.gender);
-        case 'age':
-          return a.age - b.age;
-        case 'since':
-          return new Date(a.since).getTime() - new Date(b.since).getTime();
-        default:
-          return 0;
-      }
-    });
-  };
-  const handleSorting = (sortOption: SortOption) => {
-    setSortOption(sortOption);
-  };
-
-  useEffect(() => {
-    if (customers.length) {
-      setCustomers(sortCustomers(customers, sortOption));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortOption])
-
-  useEffect(() => {
-    fetchCustomers(currentPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage])
-
+  let { customers, handleSorting, totalCustomers, customersPerPage, currentPage, handlePageChange, setSearchParams, searchParams, fetchCustomers, handleKeyDown } = useCustomerContext()
   return (
     <div className=' lg:bg-white flex flex-col gap-[40px] lg:py-[1.5rem] lg:px-[2rem] rounded-lg lg:border-2  border-[#D4D4D4]'>
       <div className='grid gap-[8px]'>
@@ -71,23 +24,39 @@ const CustomersPage: React.FC = () => {
           <input
             type="text"
             placeholder="Search By Name"
+            value={searchParams.name}
             className="p-2 gap-0 rounded-md border border-solid border-[#D4D4D4] bg-white opacity-100"
+            onKeyDown={handleKeyDown}
+            onChange={(event) => {
+              setSearchParams({
+                ...searchParams,
+                name: event.target.value
+              })
+            }}
           />
           <input
             type="text"
             placeholder="Search By Phone Number"
+            value={searchParams.phone}
             className="p-2 gap-0 rounded-md border border-solid border-[#D4D4D4] bg-white opacity-100"
+            onKeyDown={handleKeyDown}
+            onChange={(event) => {
+              setSearchParams({
+                ...searchParams,
+                phone: event.target.value
+              })
+            }}
           />
         </div>
         <div>
-          <button className=" p-2 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white">
+          <button className=" p-2 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white" onClick={() => fetchCustomers(1, searchParams)}>
             Search
           </button>
         </div>
       </div>
       <div className='flex flex-col gap-[24px]'>
         <CustomerListing customers={customers} handleSorting={handleSorting} />
-        <div className="grid lg:flex lg:items-center lg:justify-between justify-center gap-6">
+        {totalCustomers > 5 ? <div className="grid lg:flex lg:items-center lg:justify-between justify-center gap-6">
           <Pagination
             className='lg:order-2'
             count={Math.ceil(totalCustomers / customersPerPage)} // Calculate total number of pages
@@ -117,7 +86,7 @@ const CustomersPage: React.FC = () => {
             )}
           />
           <p className=' lg:order-1 font-sans font-[500] text-[#737373] text-center'>{`Showing ${currentPage < 2 ? currentPage : (currentPage) * customersPerPage - 5}-${(currentPage) * customersPerPage} of ${totalCustomers} Customers`}</p>
-        </div>
+        </div>:''}
       </div>
     </div>
   );
