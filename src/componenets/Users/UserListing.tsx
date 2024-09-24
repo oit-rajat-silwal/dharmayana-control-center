@@ -7,13 +7,13 @@ import { SortOption, UserDetails } from '@/globalTypes';
 
 
 // Props for the CustomerListing component
-interface CustomerListingProps {
+interface UserListingProps {
     users: UserDetails[];
     handleSorting: (sortOption: SortOption) => void;
 }
 
 // CustomerListing component
-const UserListing: React.FC<CustomerListingProps> = ({ users, handleSorting }) => {
+const UserListing: React.FC<UserListingProps> = ({ users, handleSorting }) => {
     return (
         <div >
 

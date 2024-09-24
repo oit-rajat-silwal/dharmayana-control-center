@@ -4,8 +4,19 @@ import { Select, FormControl, InputLabel, Modal, Box, Typography } from "@mui/ma
 import { useRouter } from "next/navigation";
 import { FormData } from "@/globalTypes";
 import { CustomMenuItem, CustomCheckbox, CloseButton } from "@/globalConstants";
-import style from "styled-jsx/style";
 
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    borderRadius: '0.8rem',
+
+    boxShadow: 24,
+    p: 4,
+};
 
 
 const AddUser: React.FC = () => {
@@ -16,6 +27,7 @@ const AddUser: React.FC = () => {
     });
     const router = useRouter();
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [modalMessage, setModalMessage] = useState('')
     const [open, setOpen] = useState(false);
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -31,10 +43,24 @@ const AddUser: React.FC = () => {
             [name]: value,
         });
     };
-    const handleSave = () => {
-        if (isFormValid) {
-            setOpen(true); // Open the modal
+    const handleSave = async () => {
+
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            setModalMessage(data.message);
+        } else {
+            console.error('Failed to add user:', response.status);
         }
+
     };
 
     const handleClose = () => {
@@ -54,8 +80,11 @@ const AddUser: React.FC = () => {
     const isFormValid =
         formData.name && formData.email && formData.role.length > 0 && isValidEmail;
     useEffect(() => {
-        console.log(formData.role);
-    }, [formData.role])
+        if (modalMessage.length) {
+            setOpen(true); // Open the modal
+        }
+    }, [modalMessage])
+
 
     return (
         <div className="p-6 gap-6 rounded-lg border border-solid border-gray-300 opacity-100 bg-white grid">

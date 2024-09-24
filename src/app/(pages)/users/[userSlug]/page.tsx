@@ -1,31 +1,22 @@
 'use client'
-import {  UserDetails } from '@/globalTypes'
+import { UserDetails } from '@/globalTypes'
 import { Box, FormControl, InputLabel, Modal, Select, Switch, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { CustomMenuItem, CustomCheckbox, CloseButton, style } from '@/globalConstants'
+import { useUserContext } from '@/contexts/UserContext'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: string } }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [userDetails, setuserDetails] = useState<UserDetails>({
-        "id": "c5138bd8-8998-4889-a314-b12295bb2af0",
-        "name": "Karleen Rycroft",
-        "email": "krycroft0@sohu.com",
-        "created_on": "2/21/2024",
-        "role": ['Admin', 'User'],
-        "last_login": "12/20/2023",
-        "status": true
-    })
+    let { selectedUser } = useUserContext();
+    const [userDetails, setuserDetails] = useState<UserDetails>(selectedUser)
 
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
     const handleUpdate = () => {
-        if (isFormValid) {
-            setOpen(true); // Open the modal
-        }
+
     };
 
     const handleClose = () => {
@@ -42,7 +33,31 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
         }));
     };
 
-    const isFormValid = userDetails.role.length > 0 ;
+    const isFormValid = userDetails.role.length > 0;
+    const updateUser = async () => {
+        const updatedUserData = {
+            id: userDetails.id,  // The user ID of the user you want to update
+            role: userDetails.role,
+            status: userDetails.status,
+        };
+
+        const response = await fetch('/api/users', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUserData),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            setOpen(data.success); // Open the modal
+
+        } else {
+            console.error('Failed to update user:', response.status);
+        }
+    };
 
     return (
         <div className=' grid gap-[40px] font-sans'>
@@ -136,7 +151,7 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
                                     ? "bg-[#CD5712] text-white"
                                     : "bg-[#CD5712] opacity-50 cursor-not-allowed"
                                     }`}
-                                onClick={handleUpdate}
+                                onClick={updateUser}
                             >
                                 Update
                             </button>
