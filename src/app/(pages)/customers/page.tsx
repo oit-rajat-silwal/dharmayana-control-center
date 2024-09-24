@@ -3,7 +3,6 @@ import CustomerListing from '@/componenets/Customers/CustomerListing';
 import { useCustomerContext } from '@/contexts/CustomerContext';
 import { Pagination, PaginationItem } from '@mui/material';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 
 const CustomersPage: React.FC = () => {
   const { customers, handleSorting, totalCustomers, customersPerPage, currentPage, handlePageChange, setSearchParams, searchParams, fetchCustomers, handleKeyDown } = useCustomerContext()

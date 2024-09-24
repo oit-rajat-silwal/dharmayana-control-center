@@ -1,6 +1,6 @@
 // festivalsContext.tsx
 import { CustomerDetailsType, CustomerSearchParams, SortOption, } from '@/globalTypes';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 
