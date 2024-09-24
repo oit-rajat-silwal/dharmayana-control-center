@@ -1,9 +1,7 @@
 import { verifyToken } from "@/app/utils/auth";
 import { CustomerDetailsType } from "@/globalTypes";
 import { CUSTOMER_DATA } from "@/services/customer-services";
-import { USER_DATA } from "@/services/user_services";
 import { NextResponse } from "next/server";
-import { v4 as uuidV4 } from "uuid"
 
 
 export async function GET(req: Request) {
@@ -20,7 +18,7 @@ export async function GET(req: Request) {
     const size = parseInt(url.searchParams.get('size') || '5', 10);
 
     // Filter users by name or phone or both
-    let filteredCustomers = CUSTOMER_DATA.filter((customer: CustomerDetailsType) => {
+    const filteredCustomers = CUSTOMER_DATA.filter((customer: CustomerDetailsType) => {
         const nameMatch = customer.name.toLowerCase().includes(name);
         const phoneMatch = customer.phone_number?.toLowerCase().includes(phone);
 

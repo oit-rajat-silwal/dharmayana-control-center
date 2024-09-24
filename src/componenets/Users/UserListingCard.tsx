@@ -1,7 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs'; // Import dayjs for date formatting
 import { UserDetails } from '@/globalTypes';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useUserContext } from '@/contexts/UserContext';
 
@@ -16,7 +15,7 @@ interface UserListingCardProps {
 
 // CustomerListingCard component
 const UserListingCard: React.FC<UserListingCardProps> = ({ userData, index }) => {
-    let { handleEditUser } = useUserContext();
+    const { handleEditUser } = useUserContext();
 
     return (
         <div className={`grid p-6 gap-4 bg-white lg:bg-transparent  border border-solid border-[#D4D4D4] border-t-2  lg:border-0  lg:rounded-none ${(index < 4) ? 'lg:border-b-2' : ''} rounded-lg   `}>

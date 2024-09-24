@@ -7,7 +7,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const UserPage: React.FC = () => {
-    let { setSearchText, fetchUsers, searchText, handleKeyDown, users, handlePageChange, handleSorting, currentPage, userPerPage, totalUsers } = useUserContext()
+    const { setSearchText, fetchUsers, searchText, handleKeyDown, users, handlePageChange, handleSorting, currentPage, userPerPage, totalUsers } = useUserContext()
     return (
         <div className=' lg:bg-white flex flex-col gap-[40px] lg:py-[1.5rem] lg:px-[2rem] rounded-lg lg:border-2  border-[#D4D4D4]'>
             <div className='flex justify-between items-center gap-[8px]'>

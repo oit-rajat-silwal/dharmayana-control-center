@@ -1,6 +1,5 @@
 // festivalsContext.tsx
-import UserUpdate from '@/app/(pages)/users/[userSlug]/page';
-import { CustomerDetailsType, CustomerSearchParams, Festival, Location, Months, SortOption, UserDetails } from '@/globalTypes';
+import { CustomerDetailsType, CustomerSearchParams, SortOption, } from '@/globalTypes';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
@@ -27,10 +26,10 @@ interface CustomerContextType {
 const CustomerContext = createContext<CustomerContextType | undefined>(undefined);
 
 export const CustomerProvider = ({ children }: { children: ReactNode }) => {
-    const [loader, setLoader] = useState(true)
+    // const [loader, setLoader] = useState(true)
+    const loader = true;
     const [customers, setCustomers] = useState<CustomerDetailsType[]>([]);
     const router = useRouter();
-    const pathname = usePathname();
     const [selectedCustomer, setSelectedCustomer] = useState<CustomerDetailsType>({
         "id": '',
         "name": '',

@@ -1,13 +1,7 @@
 // festivalsContext.tsx
-import UserUpdate from '@/app/(pages)/users/[userSlug]/page';
-import { Festival, Location, Months, SortOption, UserDetails } from '@/globalTypes';
+import { SortOption, UserDetails } from '@/globalTypes';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-
-
-
-
 
 
 interface UserContextType {
@@ -32,10 +26,10 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [loader, setLoader] = useState(true)
+    // const [loader, setLoader] = useState(true)
+    const loader = true;
     const [users, setUsers] = useState<UserDetails[]>([]);
     const router = useRouter();
-    const pathname = usePathname();
     const [selectedUser, setSelectedUser] = useState<UserDetails>({
         "id": "", "name": "", "email": "", "created_on": "", "role":
             [], "last_login": "", "status": false

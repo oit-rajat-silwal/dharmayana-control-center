@@ -9,15 +9,13 @@ import { useUserContext } from '@/contexts/UserContext'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: string } }) => {
-    let { selectedUser } = useUserContext();
+    const { selectedUser } = useUserContext();
     const [userDetails, setuserDetails] = useState<UserDetails>(selectedUser)
 
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
-    const handleUpdate = () => {
 
-    };
 
     const handleClose = () => {
         setOpen(false); // Close the modal

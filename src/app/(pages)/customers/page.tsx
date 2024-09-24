@@ -1,14 +1,12 @@
 'use client'
 import CustomerListing from '@/componenets/Customers/CustomerListing';
 import { useCustomerContext } from '@/contexts/CustomerContext';
-import { CustomerDetailsType, CustomerSearchParams, SortOption } from '@/globalTypes';
-import { CUSTOMER_DATA } from '@/services/customer-services';
 import { Pagination, PaginationItem } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const CustomersPage: React.FC = () => {
-  let { customers, handleSorting, totalCustomers, customersPerPage, currentPage, handlePageChange, setSearchParams, searchParams, fetchCustomers, handleKeyDown } = useCustomerContext()
+  const { customers, handleSorting, totalCustomers, customersPerPage, currentPage, handlePageChange, setSearchParams, searchParams, fetchCustomers, handleKeyDown } = useCustomerContext()
   return (
     <div className=' lg:bg-white flex flex-col gap-[40px] lg:py-[1.5rem] lg:px-[2rem] rounded-lg lg:border-2  border-[#D4D4D4]'>
       <div className='grid gap-[8px]'>

@@ -2,24 +2,11 @@ import React from 'react';
 import CustomerListingCard from './CustomerListingCard';
 import Image from 'next/image';
 import { CustomerDetailsType, SortOption } from '@/globalTypes';
-
-// Updated Customer type definition
-type Customer = {
-    id: string;
-    name: string;
-    gender: string;
-    phone: string;
-    age: number;
-    since: string; // Date as ISO string
-};
-
-// Props for the CustomerListing component
 interface CustomerListingProps {
     customers: CustomerDetailsType[];
     handleSorting: (sortOption: SortOption) => void;
 }
 
-// CustomerListing component
 const CustomerListing: React.FC<CustomerListingProps> = ({ customers, handleSorting }) => {
     return (
         <div >

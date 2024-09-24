@@ -3,20 +3,9 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import { Select, FormControl, InputLabel, Modal, Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FormData } from "@/globalTypes";
-import { CustomMenuItem, CustomCheckbox, CloseButton } from "@/globalConstants";
+import { CustomMenuItem, CustomCheckbox, CloseButton, style } from "@/globalConstants";
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    borderRadius: '0.8rem',
 
-    boxShadow: 24,
-    p: 4,
-};
 
 
 const AddUser: React.FC = () => {

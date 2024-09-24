@@ -1,21 +1,15 @@
 import React from 'react';
 import dayjs from 'dayjs'; // Import dayjs for date formatting
-import { Customer, CustomerDetailsType } from '@/globalTypes';
-import Link from 'next/link';
+import {  CustomerDetailsType } from '@/globalTypes';
 import { useCustomerContext } from '@/contexts/CustomerContext';
 
-// Updated Customer type definition
-
-
-// Props for the CustomerListingCard component
 interface CustomerListingCardProps {
     customerData: CustomerDetailsType;
     index: number;
 }
 
-// CustomerListingCard component
 const CustomerListingCard: React.FC<CustomerListingCardProps> = ({ customerData, index }) => {
-    let { setSelectedCustomer } = useCustomerContext();
+    const { setSelectedCustomer } = useCustomerContext();
     return (
 
         <div className={`grid w-full h-auto p-6 gap-4 bg-white lg:bg-transparent  border border-solid border-[#D4D4D4] border-t-2 

@@ -1,12 +1,11 @@
 'use client'
 import { useCustomerContext } from '@/contexts/CustomerContext'
-import { CustomerDetailsType } from '@/globalTypes'
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import React  from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CustomerDetails = ({ params: { customerSlug } }: { params: { customerSlug: string } }) => {
-    let {selectedCustomer} = useCustomerContext();
+    const {selectedCustomer} = useCustomerContext();
 
 
     return (
