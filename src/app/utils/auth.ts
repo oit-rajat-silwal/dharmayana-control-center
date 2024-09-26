@@ -1,10 +1,10 @@
 'use client'
 import { NextResponse } from 'next/server';
-import { usePermissions } from '@/contexts/PermissionsContext';
+import { useAppContext } from '@/contexts/PermissionsContext';
 import { useCallback, useEffect, useState } from 'react';
 
 export function useAuthorizationRedirect() {
-    const { permissions } = usePermissions();
+    const { permissions } = useAppContext();
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {

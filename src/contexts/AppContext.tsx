@@ -1,19 +1,9 @@
-// context/PermissionsContext.tsx
 'use client';
 
-import { Permission } from '@/globalTypes';
+import { Permission, PermissionsContextProps } from '@/globalTypes';
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-
-
-interface PermissionsContextProps {
-    permissions: Permission;
-    loader: boolean;
-    setLoader: (value: boolean) => void;
-    setPermissions: (permissions: Permission) => void;
-}
-
-const PermissionsContext = createContext<PermissionsContextProps | undefined>(undefined);
+const AppContext = createContext<PermissionsContextProps | undefined>(undefined);
 
 export const PermissionsProvider = ({ children }: { children: ReactNode }) => {
     const [loader, setLoader] = useState(true)
@@ -35,16 +25,16 @@ export const PermissionsProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return (
-        <PermissionsContext.Provider value={{ permissions, setPermissions, loader, setLoader }}>
+        <AppContext.Provider value={{ permissions, setPermissions, loader, setLoader }}>
             {children}
-        </PermissionsContext.Provider>
+        </AppContext.Provider>
     );
 };
 
-export const usePermissions = () => {
-    const context = useContext(PermissionsContext);
+export const useAppContext = () => {
+    const context = useContext(AppContext);
     if (context === undefined) {
-        throw new Error('usePermissions must be used within a PermissionsProvider');
+        throw new Error('useAppContext must be used within a PermissionsProvider');
     }
     return context;
 };

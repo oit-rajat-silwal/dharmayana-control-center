@@ -3,6 +3,7 @@
 import { NextResponse } from 'next/server';
 
 // Mock permissions based on user type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const permissionsByUserType: Record<string, any> = {
     "admin": {
         "modules": {

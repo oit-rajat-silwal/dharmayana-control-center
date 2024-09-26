@@ -7,7 +7,6 @@ export default function Login() {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
-
     // Generating a random state string for the Zoho OAuth flow
     const randomState = Math.random().toString(36).substring(7);
 

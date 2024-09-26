@@ -1,19 +1,16 @@
 'use client'
 import React, { useEffect } from 'react'
 import FeatureCard from '@/componenets/Dashboard/FeatureCard';
-import { Feature } from '@/globalTypes';
 import { useRouter } from 'next/navigation';
-import { usePermissions } from '@/contexts/PermissionsContext';
+import { useAppContext } from '@/contexts/AppContext';
 import { CONTROL_CENTER_MODULES } from '@/globalConstants';
 
-// import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-// import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 
 
 const Home = () => {
 
     const router = useRouter();
-    const { setPermissions, loader, permissions, setLoader } = usePermissions();
+    const { setPermissions, loader, permissions, setLoader } = useAppContext();
 
     useEffect(() => {
         const fetchUserPermissions = async () => {

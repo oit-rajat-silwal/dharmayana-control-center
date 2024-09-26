@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePermissions } from '@/contexts/PermissionsContext';
+import { useAppContext } from '@/contexts/AppContext';
 
 const invertIconColor = (icon: HTMLImageElement | null) => {
     if (icon) {
@@ -12,7 +12,7 @@ const invertIconColor = (icon: HTMLImageElement | null) => {
 }
 
 const SideBar = () => {
-    const { permissions } = usePermissions();
+    const { permissions } = useAppContext();
     return (
         <div className={`sidebar transition ease-in-out delay-150 duration-300  h-full translate-x-[-120%] lg:translate-x-[0%] w-[60%] sm:w-[50%] md:w-[40%] absolute lg:relative  lg:basis-1/4 lg:h-screen bg-[#FFFFFF] z-10 p-[1rem] flex flex-col gap-[2rem] border-r-2 `}>
             <Image src={'/close-btn-black.svg'} width={24} height={24} alt='customer-listing-icon' className='lg:hidden cursor-pointer' onClick={() => {
