@@ -2,7 +2,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 const ZohoCallback = () => {
   console.log("called");
@@ -29,7 +29,7 @@ const ZohoCallback = () => {
               code: code,
             }),
           });
-          
+
           if (!response.ok) {
             throw new Error('Failed to fetch Zoho tokens');
 
@@ -55,7 +55,7 @@ const ZohoCallback = () => {
     fetchTokens();
   }, []);
 
-  return <div>Logging you in, please wait...</div>;
+  return <Suspense><div>Logging you in, please wait...</div>;</Suspense>
 };
 
 export default ZohoCallback;
