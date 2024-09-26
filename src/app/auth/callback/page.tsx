@@ -55,7 +55,9 @@ const ZohoCallback = () => {
     fetchTokens();
   }, []);
 
-  return <Suspense><div>Logging you in, please wait...</div>;</Suspense>
+  return <><Suspense fallback={<div>Logging you in, please wait...</div>}>
+    <ZohoCallback />
+  </Suspense></>
 };
 
 export default ZohoCallback;
