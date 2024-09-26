@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePermissions } from '@/contexts/PermissionsContext';
 
 const invertIconColor = (icon: HTMLImageElement | null) => {
     if (icon) {
@@ -11,6 +12,7 @@ const invertIconColor = (icon: HTMLImageElement | null) => {
 }
 
 const SideBar = () => {
+    const { permissions } = usePermissions();
     return (
         <div className={`sidebar transition ease-in-out delay-150 duration-300  h-full translate-x-[-120%] lg:translate-x-[0%] w-[60%] sm:w-[50%] md:w-[40%] absolute lg:relative  lg:basis-1/4 lg:h-screen bg-[#FFFFFF] z-10 p-[1rem] flex flex-col gap-[2rem] border-r-2 `}>
             <Image src={'/close-btn-black.svg'} width={24} height={24} alt='customer-listing-icon' className='lg:hidden cursor-pointer' onClick={() => {
@@ -30,7 +32,7 @@ const SideBar = () => {
 
             </div>
             <ul className='grid gap-[1rem] font-sans '>
-                <Link href={`/dashboard`}>
+                <Link href={`/home`}>
                     <li className='transition ease-in-out delay-150 duration-300 rounded-xl py-[0.5rem] px-[1rem] font-[500] text-[14px] hover:bg-[#AB3A12] hover:text-white flex gap-[12px] ] cursor-pointer' onMouseEnter={() => {
                         invertIconColor(document.querySelector('.home-sidebar-icon'))
                     }}
@@ -45,7 +47,7 @@ const SideBar = () => {
                         </span>
                     </li>
                 </Link>
-                <Link href={`/customers`}>
+                {permissions.modules["customer_management"] && <Link href={`/customers`}>
                     <li className='transition ease-in-out delay-150 duration-300 rounded-xl py-[0.5rem] px-[1rem] font-[500] text-[14px] hover:bg-[#AB3A12] hover:text-white flex gap-[12px] ] cursor-pointer'
                         onMouseEnter={() => {
                             invertIconColor(document.querySelector('.customer-sidebar-icon'))
@@ -60,8 +62,8 @@ const SideBar = () => {
                             Customers
                         </span>
                     </li>
-                </Link>
-                {/* <Link href={`/astrology`}>
+                </Link>}
+                {permissions.modules["astrology_services"] && <Link href={`/astrology`}>
                     <li className='transition ease-in-out delay-150 duration-300 rounded-xl py-[0.5rem] px-[1rem] font-[500] text-[14px] hover:bg-[#AB3A12] hover:text-white flex gap-[12px] ] cursor-pointer'
                         onMouseEnter={() => {
                             invertIconColor(document.querySelector('.astrology-sidebar-icon'))
@@ -76,8 +78,8 @@ const SideBar = () => {
                             Astrology Service
                         </span>
                     </li>
-                </Link> */}
-                <Link href={`/users`}>
+                </Link>}
+                {permissions.modules["administration"] && <Link href={`/users`}>
                     <li className='transition ease-in-out delay-150 duration-300 rounded-xl py-[0.5rem] px-[1rem] font-[500] text-[14px] hover:bg-[#AB3A12] hover:text-white flex gap-[12px] cursor-pointer'
                         onMouseEnter={() => {
                             invertIconColor(document.querySelector('.users-sidebar-icon'))
@@ -92,7 +94,7 @@ const SideBar = () => {
                             User Management
                         </span>
                     </li>
-                </Link>
+                </Link>}
             </ul>
 
         </div>

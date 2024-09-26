@@ -31,10 +31,11 @@ const BreadCrumb = ({ pathname }: { pathname: string }) => {
             }>
             {
                 pages.map((page: string, index: number) => {
-                    return <Link key={page} href={`${index > 1 ? pathname : '/' + page}`}
-                        className={`${index === pages.length - 1 ? 'text-black' : 'text-[#8F8B8B]'} ${noto_sans.className} no-underline`} >
-                        {page === "" ? 'Home' : page === 'articles' ? 'Sacred Threads' : toCapitalCase(page.replaceAll("-", " ").replaceAll("_", " "))}
-                    </Link>
+                    if (page !== 'home')
+                        return <Link key={page} href={`${index > 1 ? pathname : '/home' + page}`}
+                            className={`${index === pages.length - 1 || page === '' ? 'text-black' : 'text-[#8F8B8B]'} ${noto_sans.className} no-underline`} >
+                            {page === "" ? 'Home' : page === 'articles' ? 'Sacred Threads' : toCapitalCase(page.replaceAll("-", " ").replaceAll("_", " "))}
+                        </Link>
                 })
             }
         </Breadcrumbs>

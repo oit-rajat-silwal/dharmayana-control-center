@@ -306,3 +306,70 @@ export const style = {
     boxShadow: 24,
     p: 4,
 };
+
+
+export const CONTROL_CENTER_MODULES: {
+    [module: string]: {
+        name: string,
+        features: {
+            [feature: string]: {
+                featureIconURL: string,
+                featureHeading: string,
+                featureDescription: string,
+                featureBtnLabel: string,
+                featurePageURL: string
+            }
+        }
+    }
+} = {
+    customer_management: {
+        name: 'Customer Management',
+        features: {
+            customer_listing: {
+
+                featureIconURL: '/customer-listing.svg',
+                featureHeading: 'Customer List',
+                featureDescription: 'View All Paid Customers and their Details',
+                featureBtnLabel: 'Go to Page',
+                featurePageURL: "/customers"
+            }
+        }
+    },
+    astrology_services  : {
+        name: 'Astrology Services',
+        features: {
+            orders: {
+
+                featureIconURL: '/astro-orders.svg',
+                featureHeading: 'Orders',
+                featureDescription: 'View All Astrology Orders',
+                featureBtnLabel: 'Go to Page',
+                featurePageURL: "/astrology/orders"
+
+            },
+            catalog_management: {
+
+                featureIconURL: '/catalog-management.svg',
+                featureHeading: 'Catalog Management',
+                featureDescription: 'View All Paid Customers and their Details',
+                featureBtnLabel: 'Go to Page',
+                featurePageURL: "/astrology/catalog"
+
+            }
+        }
+    },
+    administration: {
+        name: 'Administrartion',
+        features: {
+            user_listing: {
+
+                featureIconURL: '/user-management.svg',
+                featureHeading: 'User Management',
+                featureDescription: 'View All Paid Customers and their Details',
+                featureBtnLabel: 'Go to Page',
+                featurePageURL: "/users"
+
+            }
+        }
+    }
+};

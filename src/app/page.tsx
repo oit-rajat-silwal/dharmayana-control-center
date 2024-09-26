@@ -2,29 +2,24 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
-const router = useRouter();
+export default function Login() {
+  const router = useRouter();
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username: 'admin', password: 'password' }),
-    });
 
-    if (res.ok) {
-      // Handle successful login (e.g., redirect or show authenticated content)
-      console.log('Signed in successfully');
-      router.push("/dashboard");
-      
-    } else {
-      const { message } = await res.json();
-      console.error(message);
-    }
+    // Generating a random state string for the Zoho OAuth flow
+    const randomState = Math.random().toString(36).substring(7);
+
+    // Constructing the Zoho login URL with the state parameter
+    const zohoLoginUrl = `https://api.stage.dharmayana.in/control-center/auth/v1/zoho/login?state=${randomState}`;
+
+    // Redirecting the user to the Zoho login page
+    router.push(zohoLoginUrl);
+
+    localStorage.setItem('zoho_oauth_state', randomState);
   };
+
 
   return (
     // <div className="">
@@ -45,15 +40,15 @@ const router = useRouter();
       <div className="grid  gap-[1.5rem] place-content-center h-[90%] text-center  font-[600] ">
         <h1 className="text-lg">Login to Control Center</h1>
         {/* <Link href={"/dashboard"}> */}
-          <div className="flex gap-[1rem] p-6 border-2 border-[#D4D4D4] rounded-lg items-center cursor-pointer bg-[#ffffff]" onClick={handleSignIn}>
-            <Image
-              alt="Dharmāyana Logo"
-              loading="lazy"
-              width="1" height="1"
-              className="logo-title-img w-[5rem] h-[1.5rem] mt-[3%]"
-              src="/zoho-logo.svg" />
-            <p>Sign in with Zoho</p>
-          </div>
+        <div className="flex gap-[1rem] p-6 border-2 border-[#D4D4D4] rounded-lg items-center cursor-pointer bg-[#ffffff]" onClick={handleSignIn}>
+          <Image
+            alt="Dharmāyana Logo"
+            loading="lazy"
+            width="1" height="1"
+            className="logo-title-img w-[5rem] h-[1.5rem] mt-[3%]"
+            src="/zoho-logo.svg" />
+          <p>Sign in with Zoho</p>
+        </div>
         {/* </Link> */}
         <p className="font-[400]">Need access? Ask on Cliq</p>
 

@@ -2,6 +2,7 @@
 import BreadCrumb from "@/componenets/BreadCrumb";
 import NavBar from "@/componenets/NavBar";
 import SideBar from "@/componenets/SideBar";
+import { PermissionsProvider } from "@/contexts/PermissionsContext";
 import { usePathname } from "next/navigation";
 
 // export const metadata: Metadata = {
@@ -17,28 +18,28 @@ export default function RootLayout({
     const pathname = usePathname();
     return (
 
+        <PermissionsProvider>
+            <div className={`flex`}>
+                <SideBar />
+                <div className={`flex flex-col w-full h-screen overflow-scroll z-0`}>
+                    <NavBar />
+                    <div className={` flex flex-col dashboard-section py-[1.5rem] px-[2rem] gap-[40px] font-sans`} onClick={() => {
+                        const logout_container = document.querySelector('.logout-container');
+                        if (logout_container && !logout_container.classList.contains('hidden')) {
+                            console.log("hello");
+                            logout_container.classList.toggle('hidden');
 
-        <div className={`flex`}>
-            <SideBar />
-            <div className={`flex flex-col w-full h-screen overflow-scroll z-0`}>
-                <NavBar />
-                <div className={` flex flex-col dashboard-section py-[1.5rem] px-[2rem] gap-[40px] font-sans`} onClick={() => {
-                    const logout_container = document.querySelector('.logout-container');
-                    if (logout_container && !logout_container.classList.contains('hidden')) {
-                        console.log("hello");
-                        logout_container.classList.toggle('hidden');
+                        }
 
                     }
-
-                }
-                }>
-                    <BreadCrumb pathname={pathname} />
-                    {children}
+                    }>
+                        <BreadCrumb pathname={pathname} />
+                        {children}
+                    </div>
                 </div>
+
             </div>
-
-        </div>
-
+        </PermissionsProvider>
 
     );
 }

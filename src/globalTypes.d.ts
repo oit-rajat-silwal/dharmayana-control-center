@@ -351,7 +351,7 @@ export type CustomerDetailsType = {
     "phone_number": string,
     "age": number,
     "since": string
-  };
+};
 
 export type SortOption = 'name' | 'gender' | 'age' | 'since' | 'role' | 'last_login' | 'status';
 
@@ -379,4 +379,21 @@ export interface UserEditFormData {
 export interface CustomerSearchParams {
     name: string,
     phone: string
+}
+
+export interface Permission {
+    modules: {
+        [moduleName: string]: {
+            features: {
+                [featureName: string]: {
+                    actions: {
+                        "view": boolean,
+                        "block": boolean,  // Future functionality
+                        "delete": boolean,  // Future functionality
+                        "update": boolean  // Future functionality
+                    }
+                }
+            }
+        }
+    }
 }
