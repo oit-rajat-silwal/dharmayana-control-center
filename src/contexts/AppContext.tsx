@@ -5,7 +5,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 
 const AppContext = createContext<PermissionsContextProps | undefined>(undefined);
 
-export const PermissionsProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [loader, setLoader] = useState(true)
     const [permissions, setPermissions] = useState<Permission>({
         modules: {
@@ -34,7 +34,7 @@ export const PermissionsProvider = ({ children }: { children: ReactNode }) => {
 export const useAppContext = () => {
     const context = useContext(AppContext);
     if (context === undefined) {
-        throw new Error('useAppContext must be used within a PermissionsProvider');
+        throw new Error('useAppContext must be used within a AppProvider');
     }
     return context;
 };

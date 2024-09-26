@@ -2,7 +2,7 @@
 import BreadCrumb from "@/componenets/BreadCrumb";
 import NavBar from "@/componenets/NavBar";
 import SideBar from "@/componenets/SideBar";
-import { PermissionsProvider } from "@/contexts/PermissionsContext";
+import { AppProvider } from "@/contexts/AppContext";
 import { usePathname } from "next/navigation";
 
 // export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
     const pathname = usePathname();
     return (
 
-        <PermissionsProvider>
+        <AppProvider>
             <div className={`flex`}>
                 <SideBar />
                 <div className={`flex flex-col w-full h-screen overflow-scroll z-0`}>
@@ -39,7 +39,7 @@ export default function RootLayout({
                 </div>
 
             </div>
-        </PermissionsProvider>
+        </AppProvider>
 
     );
 }

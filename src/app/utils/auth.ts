@@ -1,6 +1,6 @@
 'use client'
 import { NextResponse } from 'next/server';
-import { useAppContext } from '@/contexts/PermissionsContext';
+import { useAppContext } from '@/contexts/AppContext';
 import { useCallback, useEffect, useState } from 'react';
 
 export function useAuthorizationRedirect() {
