@@ -4,6 +4,7 @@ import { Select, FormControl, InputLabel, Modal, Box, Typography } from "@mui/ma
 import { useRouter } from "next/navigation";
 import { FormData } from "@/globalTypes";
 import { CustomMenuItem, CustomCheckbox, CloseButton, style } from "@/globalConstants";
+import { getCookie } from "@/app/utils/auth";
 
 
 
@@ -34,12 +35,13 @@ const AddUser: React.FC = () => {
     };
     const handleSave = async () => {
 
-        const response = await fetch('/api/users', {
+        const url = `${process.env.NEXT_PUBLIC_CC_BACKEND_BASE_URL}user/v1/users`
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('access_token')}`,
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ ...formData, role: formData.role[0] })
         });
 
         if (response.ok) {
@@ -156,7 +158,10 @@ const AddUser: React.FC = () => {
                         </FormControl>
                         <div className="flex gap-2">
                             {
-                                formData.role.map((role) => <span key={Math.random()} className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">{role}</span>)
+                                Array.isArray(formData.role) ?
+                                    formData.role.map((role) => <span key={Math.random()} className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">
+                                        {role}</span>) : <span className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">
+                                        {formData.role}</span>
                             }
                         </div>
                     </div>

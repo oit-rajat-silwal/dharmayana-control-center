@@ -1,10 +1,10 @@
 export interface Feature {
     has_access: boolean,
-    featureIconURL: string,
-    featureHeading: string,
-    featureDescription: string,
-    featureBtnLabel: string,
-    featurePageURL: string,
+    actionURL: string,
+    actionHeading: string,
+    actionDescription: string,
+    actionBtnLabel: string,
+    actionPageURL: string,
 }
 
 export type Customer = {
@@ -43,7 +43,7 @@ export type UserDetails = {
 export interface FormData {
     name: string;
     email: string;
-    role: string[];
+    role: string[] |string;
 }
 export interface UserEditFormData {
     status: boolean;
@@ -57,25 +57,39 @@ export interface CustomerSearchParams {
 }
 
 export interface Permission {
-    modules: {
-        [moduleName: string]: {
-            features: {
-                [featureName: string]: {
-                    actions: {
-                        "view": boolean,
-                        "block": boolean,  // Future functionality
-                        "delete": boolean,  // Future functionality
-                        "update": boolean  // Future functionality
-                    }
-                }
-            }
-        }
-    }
+    [featureName: string]: string[]
 }
+
 
 export interface PermissionsContextProps {
     permissions: Permission;
     loader: boolean;
     setLoader: (value: boolean) => void;
     setPermissions: (permissions: Permission) => void;
+}
+
+// {
+//     "data": {
+//         "customer": [
+//             "details"
+//         ],
+//         "user_management": [
+//             "list",
+//             "details",
+//             "create"
+//         ]
+//     },
+
+export interface ControlCenterService {
+    name: string,
+    permissionKey:string,
+    actions: {
+        [feature: string]: {
+            actionURL: string,
+            actionHeading: string,
+            actionDescription: string,
+            actionBtnLabel: string,
+            actionPageURL: string
+        }
+    }
 }

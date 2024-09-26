@@ -13,23 +13,22 @@ export function useAuthorizationRedirect() {
     }, []);
 
     const redirectWithAuthorization = useCallback(
-        (route: string, requiredFeature: string) => {
+        (permissionRequest: {requestedService:string,requestedAction:string}) => {
+            console.log(permissionRequest);
             if (!isMounted) return;
 
             // Check if permissions are loaded and valid
-            if (permissions && permissions.modules) {
+            if (permissions) {
                 // Traverse through the permissions to find the required feature
-                const hasFeatureAccess = Object.values(permissions.modules).some(module =>
-                    module.features?.[requiredFeature]?.actions?.view
-                );
+                const hasFeatureAccess = permissions[permissionRequest.requestedService].some(action => {
+                console.log(action,permissionRequest.requestedAction)    
+                    return action === permissionRequest.requestedAction
+                });
 
                 // Redirect based on the access check
-                if (hasFeatureAccess) {
-                    window.location.href = route; // Redirect to the intended route
-                } else {
-                    window.location.href = '/unauthorized'; // Redirect to unauthorized
-                }
+                return hasFeatureAccess
             } else {
+                console.log("outer")
                 // If permissions are not available yet, redirect to unauthorized as a fallback
                 window.location.href = '/unauthorized';
             }
@@ -43,20 +42,29 @@ export function useAuthorizationRedirect() {
 
 
 export function verifyToken(req: Request) {
-  // Extract cookies from the request headers
-  const cookies = req.headers.get('cookie');
+    // Extract cookies from the request headers
+    const cookies = req.headers.get('cookie');
 
-  // Retrieve the access_token and refresh_token from the cookies
-  const accessToken = cookies?.split('access_token=')[1]?.split(';')[0];
-  const refreshToken = cookies?.split('refresh_token=')[1]?.split(';')[0];
+    // Retrieve the access_token and refresh_token from the cookies
+    const accessToken = cookies?.split('access_token=')[1]?.split(';')[0];
+    const refreshToken = cookies?.split('refresh_token=')[1]?.split(';')[0];
 
-  // Check if both tokens are present
-  if (!accessToken || !refreshToken) {
-    // If either token is missing, return an unauthorized response
-    return { success: false, response: NextResponse.json({ message: 'Unauthorized: Missing tokens' }, { status: 401 }) };
-  } else {
-    // If both tokens are present, return success
-    return { success: true };
-  }
+    // Check if both tokens are present
+    if (!accessToken || !refreshToken) {
+        // If either token is missing, return an unauthorized response
+        return { success: false, response: NextResponse.json({ message: 'Unauthorized: Missing tokens' }, { status: 401 }) };
+    } else {
+        // If both tokens are present, return success
+        return { success: true };
+    }
 }
 
+export const deleteCookie = (name: string) => {
+    document.cookie = `${name}=; Max-Age=0; path=/; Secure; SameSite=Strict`;
+};
+
+export const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+};

@@ -3,20 +3,28 @@ import { UserDetails } from '@/globalTypes'
 import { Box, FormControl, InputLabel, Modal, Select, Switch, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CustomMenuItem, CustomCheckbox, CloseButton, style } from '@/globalConstants'
 import { useUserContext } from '@/contexts/UserContext'
+import Link from 'next/link'
+import { getCookie } from '@/app/utils/auth'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: string } }) => {
     const { selectedUser } = useUserContext();
-    const [userDetails, setuserDetails] = useState<UserDetails>(selectedUser)
-
+    console.log(selectedUser);
+    const [userDetails, setuserDetails] = useState<UserDetails>({
+        id: '',
+        name: '',
+        email: '',
+        created_on: '',
+        role: [],
+        last_login: '',
+        status: false,
+    });
+    const [modalMessage, setModalMessage] = useState('')
     const router = useRouter();
     const [open, setOpen] = useState(false);
-
-
-
     const handleClose = () => {
         setOpen(false); // Close the modal
         router.push("/users")
@@ -39,33 +47,42 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
             status: userDetails.status,
         };
 
-        const response = await fetch('/api/users', {
-            method: 'PUT',
+        const url = `${process.env.NEXT_PUBLIC_CC_BACKEND_BASE_URL}user/v1/users`
+        const response = await fetch(url, {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('access_token')}`,
             },
-            body: JSON.stringify(updatedUserData),
+            body: JSON.stringify({ ...updatedUserData, role: updatedUserData.role[0] })
         });
 
         if (response.ok) {
             const data = await response.json();
 
-            setOpen(data.success); // Open the modal
-
+            setModalMessage(data.message);
         } else {
-            console.error('Failed to update user:', response.status);
+            console.error('Failed to add user:', response.status);
         }
     };
-
+    useEffect(() => {
+        if (modalMessage.length) {
+            setOpen(true); // Open the modal
+        }
+    }, [modalMessage])
+    useEffect(() => {
+        if(selectedUser.id.length)
+        {
+            setuserDetails(selectedUser);
+        }else{
+            router.back();
+        }
+    }, [selectedUser])
     return (
         <div className=' grid gap-[40px] font-sans'>
             <div className='grid gap-[8px]'>
                 <h1 className="font-sans font-bold text-[40px]  text-[#171717]">
                     {userDetails.name}
                 </h1>
-                {/* <p className="text-sm font-normal font-sans leading-5 tracking-normal text-left text-[#737373]">
-                    List of all customers on the App
-                </p> */}
             </div>
             <div className='grid lg:grid-cols-2 gap-[24px]'>
                 <div className='bg-[#FFFFFF] flex flex-col  gap-[24px] p-4 border-2 rounded-lg border-[#D4D4D4]'>
@@ -100,7 +117,7 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
                                         labelId="role-label"
                                         id="role"
                                         multiple
-                                        value={userDetails.role}
+                                        value={Array.isArray(userDetails.role) ? userDetails.role : [userDetails.role]}
                                         onChange={handleRoleChange}
                                         placeholder="Select a role"
                                         className="  p-0 rounded-md"
@@ -108,10 +125,10 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
                                         }
 
                                     >
-                                        {["Admin", "User"].map((role) => (
+                                        {["admin", "user"].map((role) => (
                                             <CustomMenuItem key={role} value={role} className="flex gap-3">
                                                 <CustomCheckbox
-                                                    checked={userDetails.role.indexOf(role) > -1}
+                                                    checked={(Array.isArray(userDetails.role) ? userDetails.role : [userDetails.role]).indexOf(role) > -1}
                                                 />
                                                 {role}
                                             </CustomMenuItem>
@@ -120,7 +137,10 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
                                 </FormControl>
                                 <div className="flex gap-2">
                                     {
-                                        userDetails.role.map((role) => <span key={Math.random()} className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">{role}</span>)
+                                        Array.isArray(userDetails.role) ?
+                                            userDetails.role.map((role) => <span key={Math.random()} className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">
+                                                {role}</span>) : <span className="bg-[#F5F5F5] rounded-2xl py-1 px-2 text-[#525252] font-sans font-[600] text-[12px]">
+                                                {userDetails.role}</span>
                                     }
                                 </div>
                             </div>
@@ -155,9 +175,11 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
                             </button>
 
                             {/* Cancel Button */}
-                            <button className="p-2 px-4 gap-2 rounded-md border border-solid border-gray-300 bg-white">
-                                Cancel
-                            </button>
+                            <Link href='/users'>
+                                <button className="p-2 px-4 gap-2 rounded-md border border-solid border-gray-300 bg-white">
+                                    Cancel
+                                </button>
+                            </Link>
                         </div>
                         {/* Modal Implementation */}
                         <Modal

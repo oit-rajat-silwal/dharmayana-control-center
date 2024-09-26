@@ -1,6 +1,7 @@
 import { Inter, Noto_Sans, Noto_Serif, Ubuntu, Roboto, Great_Vibes } from 'next/font/google';
 import styled from '@emotion/styled';
 import { Checkbox, MenuItem, Button } from '@mui/material';
+import { ControlCenterService } from './globalTypes';
 
 //API_SERVICES_CONSTANTS 
 export const revalidate = { revalidate: 3600 };
@@ -97,70 +98,64 @@ export const style = {
 };
 
 
-export const CONTROL_CENTER_MODULES: {
-    [module: string]: {
-        name: string,
-        features: {
-            [feature: string]: {
-                featureIconURL: string,
-                featureHeading: string,
-                featureDescription: string,
-                featureBtnLabel: string,
-                featurePageURL: string
-            }
-        }
-    }
-} = {
-    customer_management: {
+export const CONTROL_CENTER_SERVICES: ControlCenterService[] = [
+    {
         name: 'Customer Management',
-        features: {
-            customer_listing: {
-
-                featureIconURL: '/customer-listing.svg',
-                featureHeading: 'Customer List',
-                featureDescription: 'View All Paid Customers and their Details',
-                featureBtnLabel: 'Go to Page',
-                featurePageURL: "/customers"
+        permissionKey: 'customer',
+        actions: {
+            list: {
+                actionURL: '/customer-listing.svg',
+                actionHeading: 'Customer List',
+                actionDescription: 'View All Paid Customers and their Details',
+                actionBtnLabel: 'Go to Page',
+                actionPageURL: "/customers"
+            },
+            details: {
+                actionURL: '/customer-listing.svg',
+                actionHeading: 'Customer List',
+                actionDescription: 'View All Paid Customers and their Details',
+                actionBtnLabel: 'Go to Page',
+                actionPageURL: "/customers"
             }
         }
     },
-    astrology_services  : {
+    {
         name: 'Astrology Services',
-        features: {
+        permissionKey: 'astrology',
+        actions: {
             orders: {
-
-                featureIconURL: '/astro-orders.svg',
-                featureHeading: 'Orders',
-                featureDescription: 'View All Astrology Orders',
-                featureBtnLabel: 'Go to Page',
-                featurePageURL: "/astrology/orders"
+                actionURL: '/astro-orders.svg',
+                actionHeading: 'Orders',
+                actionDescription: 'View All Astrology Orders',
+                actionBtnLabel: 'Go to Page',
+                actionPageURL: "/astrology/orders"
 
             },
             catalog_management: {
 
-                featureIconURL: '/catalog-management.svg',
-                featureHeading: 'Catalog Management',
-                featureDescription: 'View All Paid Customers and their Details',
-                featureBtnLabel: 'Go to Page',
-                featurePageURL: "/astrology/catalog"
+                actionURL: '/catalog-management.svg',
+                actionHeading: 'Catalog Management',
+                actionDescription: 'View All Paid Customers and their Details',
+                actionBtnLabel: 'Go to Page',
+                actionPageURL: "/astrology/catalog"
 
             }
         }
     },
-    administration: {
+    {
         name: 'Administrartion',
-        features: {
-            user_listing: {
-
-                featureIconURL: '/user-management.svg',
-                featureHeading: 'User Management',
-                featureDescription: 'View All Paid Customers and their Details',
-                featureBtnLabel: 'Go to Page',
-                featurePageURL: "/users"
+        permissionKey: 'user_management',
+        actions: {
+            list: {
+                actionURL: '/user-management.svg',
+                actionHeading: 'User Management',
+                actionDescription: 'View All Paid Customers and their Details',
+                actionBtnLabel: 'Go to Page',
+                actionPageURL: "/users"
 
             }
         }
     }
-};
+];
 
 

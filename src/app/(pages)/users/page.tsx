@@ -1,13 +1,22 @@
 'use client'
+import { useAuthorizationRedirect } from '@/app/utils/auth';
 import UserListing from '@/componenets/Users/UserListing';
 import { useUserContext } from '@/contexts/UserContext';
 import { Pagination, PaginationItem } from '@mui/material';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const UserPage: React.FC = () => {
-    const { setSearchText, fetchUsers, searchText, handleKeyDown, users, handlePageChange, handleSorting, currentPage, userPerPage, totalUsers } = useUserContext()
+    const { setSearchText, fetchUsers, searchText, handleKeyDown, users, handlePageChange, handleSorting, currentPage, userPerPage, totalUsers } = useUserContext();
+    const authorizeAndRedirect = useAuthorizationRedirect();
+    const router = useRouter();
+    const handleAddUser = () => {
+        if (authorizeAndRedirect({ requestedService: 'user_management', requestedAction: 'create' })) {
+            router.push('/users/add-user');
+        }
+
+    }
     return (
         <div className=' lg:bg-white flex flex-col gap-[40px] lg:py-[1.5rem] lg:px-[2rem] rounded-lg lg:border-2  border-[#D4D4D4]'>
             <div className='flex justify-between items-center gap-[8px]'>
@@ -15,12 +24,12 @@ const UserPage: React.FC = () => {
                     <h1 className="font-bold text-[24px]  text-[#171717]">Users</h1>
                     <span className='text-[#737373] text-md'>List of all users on the Control Center</span>
                 </div>
-                <Link href={`/users/add-user`}>
-                    <button className=" p-3 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white items-center flex gap-2">
-                        <Image src={`/add-user-icon.svg`} height={20} width={20} alt={"add-user-icon"} />
-                        <span>Add User</span>
-                    </button>
-                </Link>
+
+                <button className=" p-3 rounded-md border border-solid opacity-100 bg-[#CD5712] text-white items-center flex gap-2" onClick={handleAddUser}>
+                    <Image src={`/add-user-icon.svg`} height={20} width={20} alt={"add-user-icon"} />
+                    <span>Add User</span>
+                </button>
+
             </div>
             <div className="flex  gap-[1rem]">
 
@@ -40,7 +49,7 @@ const UserPage: React.FC = () => {
 
             </div>
             <div className='flex flex-col gap-[24px]'>
-                <UserListing users={users} handleSorting={handleSorting} />
+                {users.length?<UserListing users={users} handleSorting={handleSorting} />:<p className='w-full text-center'>Loading Users...</p>}
                 {totalUsers > 5 ? <div className="grid lg:flex lg:items-center lg:justify-between justify-center gap-6">
                     <Pagination
                         className='lg:order-2'

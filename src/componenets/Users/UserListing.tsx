@@ -16,7 +16,6 @@ interface UserListingProps {
 const UserListing: React.FC<UserListingProps> = ({ users, handleSorting }) => {
     return (
         <div >
-
             <div className="grid gap-8 lg:gap-0 lg:bg-white lg:rounded-lg">
                 <div className="hidden lg:grid  lg:grid-cols-5 p-6 gap-10 font-[500] lg:border-b-2 lg:border-[#D4D4D4]">
 

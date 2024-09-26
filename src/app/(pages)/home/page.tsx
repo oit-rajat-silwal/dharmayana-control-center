@@ -1,73 +1,41 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import FeatureCard from '@/componenets/Dashboard/FeatureCard';
-import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext';
-import { CONTROL_CENTER_MODULES } from '@/globalConstants';
+import { CONTROL_CENTER_SERVICES as CONTROL_CENTER_SERVICES } from '@/globalConstants';
+import { ControlCenterService } from '@/globalTypes';
 
 
 
 const Home = () => {
 
-    const router = useRouter();
-    const { setPermissions, loader, permissions, setLoader } = useAppContext();
-
-    useEffect(() => {
-        const fetchUserPermissions = async () => {
-            try {
-                const response = await fetch('/api/permissions/admin', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${document.cookie.split('access_token=')[1]?.split(';')[0]}`,
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch permissions');
-                }
-
-                const data = await response.json();
-                setPermissions(data); // Store permissions in the global context
-
-            } catch (error) {
-                console.error('Error fetching permissions:', error);
-                router.push('/unauthorized');
-            }
-        };
-
-        fetchUserPermissions();
-    }, []);
-
-    useEffect(() => {
-        // console.log(permissions);
-        setLoader(false);
-    }, [permissions])
-
+    const {  loader, permissions,  } = useAppContext();
+   
     return (
         <>
             <h1 className=' text-[2rem] text-[#171717] font-[700]'>Welcome to Control Center</h1>
             <div className='feature-department-listing grid gap-[40px] '>
                 {
-                    !loader ? Object.keys(permissions.modules).map((module: string) => {
-
-
+                    !loader ? Object.keys(permissions).map((serviceName: string) => {
+                        const service: ControlCenterService = CONTROL_CENTER_SERVICES.filter((service) => service.permissionKey === serviceName)[0];
                         return <div key={Math.random()} className=' grid gap-[24px]'>
-                            <h2 className=' text-[1.5rem] text-[#171717] font-[600]'>{module.split('_').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h2>
+                            <h2 className=' text-[1.5rem] text-[#171717] font-[600]'>{service.name.split('_').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h2>
                             <div className='grid rounded-lg  bg-[#FFFFFF] border-[#D4D4D4]  border-2 p-6 gap-[24px]'>
                                 {
-                                    Object.keys(permissions.modules[module].features).map((feature, index) => {
-                                        // console.log(CONTROL_CENTER_MODULES[module].features,feature);
-                                        return <div key={Math.random()} className='grid gap-[24px]'>
-                                            <FeatureCard baseClass={'Home'}
-                                                featureIconURL={CONTROL_CENTER_MODULES[module].features[feature].featureIconURL}
-                                                featureHeading={CONTROL_CENTER_MODULES[module].features[feature].featureHeading}
-                                                featureDescription={CONTROL_CENTER_MODULES[module].features[feature].featureDescription}
-                                                featureBtnLabel={CONTROL_CENTER_MODULES[module].features[feature].featureBtnLabel}
-                                                featurePageURL={CONTROL_CENTER_MODULES[module].features[feature].featurePageURL}
-                                                featurePermissionKey={feature}
-                                            />
-                                            {(Object.keys(permissions.modules[module].features).length > 1) && (index < Object.keys(permissions.modules[module].features).length - 1) ? <hr className='border-1 border-[#D4D4D4] lg:w-[90%] lg:relative lg:left-[10%]' /> : <></>}
-                                        </div>
+                                    permissions[serviceName].map((action: string) => {
+                                        // console.log(service.actions, action);
+                                        if (service.actions[action])
+                                            return <div key={Math.random()} className='grid gap-[24px]'>
+                                                <FeatureCard baseClass={'Home'}
+                                                    actionURL={service.actions[action].actionURL}
+                                                    actionHeading={service.actions[action].actionHeading}
+                                                    actionDescription={service.actions[action].actionDescription}
+                                                    actionBtnLabel={service.actions[action].actionBtnLabel}
+                                                    actionPageURL={service.actions[action].actionPageURL}
+                                                    permissionRequest={{ requestedService: service.permissionKey, requestedAction: action }}
+                                                />
+                                                {/* {(permissions[serviceName].length > 1) && (index < permissions[serviceName].length - 1) ? <hr className='border-1 border-[#D4D4D4] lg:w-[90%] lg:relative lg:left-[10%]' /> : <></>} */}
+                                            </div>
                                     })
                                 }
                             </div>

@@ -1,6 +1,7 @@
 'use client'
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Login() {
   const router = useRouter();
@@ -19,6 +20,20 @@ export default function Login() {
     localStorage.setItem('zoho_oauth_state', randomState);
   };
 
+  useEffect(() => {
+    console.log("hello");
+    const tokenExpiry = localStorage.getItem('token_expiry');
+
+    if (tokenExpiry) {
+      const expiryTime = parseInt(tokenExpiry, 10);
+      const currentTime = Date.now();
+
+      if (currentTime < expiryTime) {
+      
+        router.push('/home');
+      }
+    }
+  }, []);
 
   return (
     // <div className="">

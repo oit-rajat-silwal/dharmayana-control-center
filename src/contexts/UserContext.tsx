@@ -1,6 +1,7 @@
 // festivalsContext.tsx
+import { getCookie, useAuthorizationRedirect } from '@/app/utils/auth';
 import { SortOption, UserDetails } from '@/globalTypes';
-import {  useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 
@@ -28,8 +29,9 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     // const [loader, setLoader] = useState(true)
     const loader = true;
-    const [users, setUsers] = useState<UserDetails[]>([]);
     const router = useRouter();
+    const authorizeAndRedirect = useAuthorizationRedirect();
+    const [users, setUsers] = useState<UserDetails[]>([]);
     const [selectedUser, setSelectedUser] = useState<UserDetails>({
         "id": "", "name": "", "email": "", "created_on": "", "role":
             [], "last_login": "", "status": false
@@ -45,18 +47,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const fetchUsers = async (currentPage: number, searchText: string) => {
-        const url = `/api/users?page=${currentPage}&size=${userPerPage}${searchText.length ? `&search=${searchText}` : ''}`
+        const url = `${process.env.NEXT_PUBLIC_CC_BACKEND_BASE_URL}user/v1/users?page=${currentPage}&size=${userPerPage}${searchText.length ? `&name=${searchText}` : ''}`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('access_token')}`,
             }
         });
 
         if (response.ok) {
             const data = await response.json();
-            setUsers(data.users);
-                setTotalUsers(data.totalUsers);
+            setUsers(data.data);
+            setTotalUsers(data.totalUsers);
         } else {
             console.error('Failed to fetch users:', response.status);
         }
@@ -103,12 +105,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const handleEditUser = (userData: UserDetails) => {
+
         setSelectedUser(userData);
 
     }
     useEffect(() => {
         if (selectedUser) {
-            router.push(`/users/${selectedUser.name.replaceAll(" ", "-")}`)
+
+            if (authorizeAndRedirect({ requestedService: 'user_management', requestedAction: 'details' })) {
+                router.push(`/users/${selectedUser.id}`);
+              }
         }
     }, [selectedUser])
 
@@ -142,3 +148,5 @@ export const useUserContext = () => {
     }
     return context;
 };
+
+
