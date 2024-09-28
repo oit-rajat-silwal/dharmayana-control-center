@@ -1,4 +1,5 @@
 // festivalsContext.tsx
+import { getCookie } from '@/app/utils/auth';
 import { CustomerDetailsType, CustomerSearchParams, SortOption, } from '@/globalTypes';
 import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -12,12 +13,12 @@ interface CustomerContextType {
     currentPage: number,
     searchParams: CustomerSearchParams,
     customersPerPage: number,
-    totalCustomers: number,
+    // totalCustomers: number,
     setSearchParams: (searchParams: CustomerSearchParams) => void,
     fetchCustomers: (currentPage: number, searchParams: CustomerSearchParams) => void,
     handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void,
     handleSorting: (sortOption: SortOption) => void,
-    handlePageChange: (_event: React.ChangeEvent<unknown>, value: number) => void,
+    handlePageChange: (value: number) => void,
     setSelectedCustomer: (selectedCustomer: CustomerDetailsType) => void
     handleViewCustomer: (customerData: CustomerDetailsType) => void
 }
@@ -48,26 +49,26 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
         name: '',
         phone: ''
     })
-    const customersPerPage: number = 5;
-    const [totalCustomers, setTotalCustomers] = useState(0);
+    const customersPerPage: number = 10;
+    // const [totalCustomers, setTotalCustomers] = useState(0);
 
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    const handlePageChange = (value: number) => {
         setCurrentPage(value); // Update the current page
     };
 
     const fetchCustomers = async (currentPage: number, searchParams: CustomerSearchParams) => {
-        const url = `/api/customers?page=${currentPage}&size=${customersPerPage}${searchParams.name ? `&name=${searchParams.name}` : ''}${searchParams.phone ? `&phone=${searchParams.phone}` : ''}`
+        const url = `${process.env.NEXT_PUBLIC_CC_BACKEND_BASE_URL}customer/v1/customers?page=${currentPage}&size=${customersPerPage}${searchParams.name ? `&name=${searchParams.name}` : ''}${searchParams.phone ? `&phone=${searchParams.phone}` : ''}`
         const response = await fetch(url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('access_token')}`,
             }
         });
 
         if (response.ok) {
-            const data = await response.json();
-            setCustomers(data.customers);
-            setTotalCustomers(data.totalCustomers);
+            const data = await (await response.json()).data;
+            setCustomers(data);
+            // setTotalCustomers(data.);
         } else {
             console.error('Failed to fetch users:', response.status);
         }
@@ -132,7 +133,7 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
             currentPage,
             searchParams,
             customersPerPage,
-            totalCustomers,
+            // totalCustomers,
             selectedCustomer,
             setSearchParams,
             fetchCustomers,

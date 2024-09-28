@@ -1,11 +1,16 @@
 'use client'
 import CustomerListing from '@/componenets/Customers/CustomerListing';
+import CustomPagination from '@/componenets/Customers/Paginator';
 import { useCustomerContext } from '@/contexts/CustomerContext';
-import { Pagination, PaginationItem } from '@mui/material';
-import Image from 'next/image';
 
 const CustomersPage: React.FC = () => {
-  const { customers, handleSorting, totalCustomers, customersPerPage, currentPage, handlePageChange, setSearchParams, searchParams, fetchCustomers, handleKeyDown } = useCustomerContext()
+  const { customers, handleSorting,
+    // totalCustomers, 
+    customersPerPage,
+    currentPage, handlePageChange, setSearchParams, searchParams, fetchCustomers, handleKeyDown } = useCustomerContext()
+  // console.log(totalCustomers);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   return (
     <div className=' lg:bg-white flex flex-col gap-[40px] lg:py-[1.5rem] lg:px-[2rem] rounded-lg lg:border-2  border-[#D4D4D4]'>
       <div className='grid gap-[8px]'>
@@ -53,37 +58,10 @@ const CustomersPage: React.FC = () => {
       </div>
       <div className='flex flex-col gap-[24px]'>
         <CustomerListing customers={customers} handleSorting={handleSorting} />
-        {totalCustomers > 5 ? <div className="grid lg:flex lg:items-center lg:justify-between justify-center gap-6">
-          <Pagination
-            className='lg:order-2'
-            count={Math.ceil(totalCustomers / customersPerPage)} // Calculate total number of pages
-            page={currentPage} // Current active page
-            onChange={handlePageChange} // Handle page change
-            shape="rounded"
-            color="primary"
-            size="large"
-            renderItem={(item) => (
-              <PaginationItem
-                {...item}
-                slots={{
-                  previous: () => <button className='flex items-center gap-[1rem]'>
-                    <Image src={'/paginantion-arrow.svg'} width={16} height={16} alt="paginantion-previous-arrow" />
-                    <span>
-                      Previous
-                    </span>
-                  </button>, // Custom "Previous" button
-                  next: () => <button className='flex items-center gap-[1rem]'>
-                    <span>
-                      Next
-                    </span>
-                    <Image src={'/paginantion-arrow.svg'} width={16} height={16} alt="paginantion-previous-arrow" className='rotate-180' />
-                  </button> // Custom "Next" button
-                }}
-              />
-            )}
-          />
-          <p className=' lg:order-1 font-sans font-[500] text-[#737373] text-center'>{`Showing ${currentPage < 2 ? currentPage : (currentPage) * customersPerPage - 5}-${(currentPage) * customersPerPage} of ${totalCustomers} Customers`}</p>
-        </div>:''}
+        {<div className="grid lg:flex lg:items-center lg:justify-between justify-center gap-6">
+          <CustomPagination currentPage={currentPage} customers={customers} customersPerPage={customersPerPage} handlePageChange={handlePageChange} />
+          {/* <p className=' lg:order-1 font-sans font-[500] text-[#737373] text-center'>{`Showing ${currentPage < 2 ? currentPage : (currentPage) * customersPerPage - 5}-${(currentPage) * customersPerPage} of ${totalCustomers} Customers`}</p> */}
+        </div>}
       </div>
     </div>
   );

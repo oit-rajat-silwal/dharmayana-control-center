@@ -53,7 +53,7 @@ const UserUpdate = ({ params: { customerSlug } }: { params: { customerSlug: stri
             headers: {
                 'Authorization': `Bearer ${getCookie('access_token')}`,
             },
-            body: JSON.stringify({ ...updatedUserData, role: updatedUserData.role[0] })
+            body: JSON.stringify({ ...updatedUserData, role: updatedUserData.role })
         });
 
         if (response.ok) {

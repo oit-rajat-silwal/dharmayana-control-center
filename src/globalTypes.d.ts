@@ -15,6 +15,7 @@ export type Customer = {
     phone: string;
     since: string;
 };
+
 export type CustomerDetailsType = {
     "id": string,
     "name": string,
@@ -39,7 +40,6 @@ export type UserDetails = {
     last_login: string;
     status: boolean;
 }
-
 export interface FormData {
     name: string;
     email: string;
@@ -49,37 +49,19 @@ export interface UserEditFormData {
     status: boolean;
     role: string[];
 }
-
-
 export interface CustomerSearchParams {
     name: string,
     phone: string
 }
-
 export interface Permission {
     [featureName: string]: string[]
 }
-
-
 export interface PermissionsContextProps {
     permissions: Permission;
     loader: boolean;
     setLoader: (value: boolean) => void;
     setPermissions: (permissions: Permission) => void;
 }
-
-// {
-//     "data": {
-//         "customer": [
-//             "details"
-//         ],
-//         "user_management": [
-//             "list",
-//             "details",
-//             "create"
-//         ]
-//     },
-
 export interface ControlCenterService {
     name: string,
     permissionKey:string,

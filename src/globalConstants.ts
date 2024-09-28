@@ -8,16 +8,19 @@ export const revalidate = { revalidate: 3600 };
 
 //GOOGLE_FONTS_CLASS_OBJECTS which are used throughout the app as a tailwind class. 
 export const inter = Inter({ subsets: ['latin'] });
+
 export const noto_sans = Noto_Sans({
     display: 'swap',
     style: "normal",
     subsets: ['latin']
 });
+
 export const noto_serif = Noto_Serif({
     display: 'swap',
     style: "normal",
     subsets: ['latin']
 });
+
 export const ubuntu = Ubuntu({
     display: 'swap',
     style: 'normal',
@@ -25,6 +28,7 @@ export const ubuntu = Ubuntu({
     weight: '400',
 
 });
+
 export const ubuntu_500 = Ubuntu({
     display: 'swap',
     style: 'normal',
@@ -32,6 +36,7 @@ export const ubuntu_500 = Ubuntu({
     weight: '500',
 
 });
+
 export const ubuntu_700 = Ubuntu({
     display: 'swap',
     style: 'normal',
@@ -39,6 +44,7 @@ export const ubuntu_700 = Ubuntu({
     weight: '700',
 
 });
+
 export const roboto = Roboto({
     display: 'swap',
     style: 'normal',
@@ -46,6 +52,7 @@ export const roboto = Roboto({
     weight: '400',
 
 });
+
 export const great_vibes = Great_Vibes({
     display: 'swap',
     style: 'normal',
@@ -53,7 +60,6 @@ export const great_vibes = Great_Vibes({
     weight: '400',
 
 });
-
 
 // eslint-disable-next-line  @typescript-eslint/no-unused-vars
 export const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
@@ -64,7 +70,6 @@ export const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
     },
 }));
 
-// Custom styles for the select menu item on hover
 // eslint-disable-next-line   @typescript-eslint/no-unused-vars
 export const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     "&:hover": {
@@ -96,7 +101,6 @@ export const style = {
     boxShadow: 24,
     p: 4,
 };
-
 
 export const CONTROL_CENTER_SERVICES: ControlCenterService[] = [
     {
