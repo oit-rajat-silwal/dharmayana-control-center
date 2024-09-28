@@ -114,13 +114,6 @@ export const CONTROL_CENTER_SERVICES: ControlCenterService[] = [
                 actionBtnLabel: 'Go to Page',
                 actionPageURL: "/customers"
             },
-            details: {
-                actionURL: '/customer-listing.svg',
-                actionHeading: 'Customer List',
-                actionDescription: 'View All Paid Customers and their Details',
-                actionBtnLabel: 'Go to Page',
-                actionPageURL: "/customers"
-            }
         }
     },
     {
